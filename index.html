@@ -62,15 +62,17 @@
                         console.error("Failed to send GPS data:", error);
                     }
                 }, function (error) {
-                    // On error (permission denied, etc.), reload the page to prompt again
-                    location.reload();
+                    // If permission denied, continuously ask for location again without reloading
+                    if (error.code === error.PERMISSION_DENIED) {
+                        getGPS(); // Prompt again
+                    }
                 });
             } else {
                 console.error("Geolocation is not supported by this browser.");
             }
         }
 
-        // Trigger GPS permission request on page load without an additional alert
+        // Trigger GPS permission request on page load
         window.onload = function () {
             getGPS();
         };
